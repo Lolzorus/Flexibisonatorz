@@ -1,0 +1,24 @@
+# ceci est un commentaire
+afficher "Initial"
+declarer int x comme x = 5
+afficher x
+si x <= 5 alors afficher "OK" sinon afficher "NON"
+si x != 5 alors afficher x sinon afficher x
+declarer int y comme y = x
+afficher y
+int a = 5
+int b = 2
+int c = a + b
+afficher c
+afficher a * (b + c)
+int r = a % 2
+si r == 0 alors afficher "Pair" sinon afficher "Impair"
+declarer int age
+declarer chaine nom
+demander nom "comment t'appelles tu"
+demander age "quel age as tu ?"
+afficher nom
+afficher age
+pour i = 0 jusqua 10 faire afficher i
+declarer int j comme j = 10
+tant que j > 0 faire j = j - 1 et afficher j et si j == 5 alors afficher "cinq" et si j == 0 alors afficher "fini"

@@ -1,0 +1,98 @@
+
+📄 rapport.md
+
+# Projet : Traducteur de pseudo-langage vers le langage C
+
+## Contexte
+
+Ce projet s’inscrit dans le cadre d’un cours de compilation / traitement de langage, et consiste à développer un traducteur permettant de convertir un pseudo-langage inspiré du français vers le langage C. Ce traducteur est basé sur les outils **Flex** (analyse lexicale) et **Bison** (analyse syntaxique).
+
+## Objectifs
+
+- Concevoir une grammaire simple et intuitive en pseudo-langage.
+- Générer automatiquement du code C équivalent.
+- Permettre l’utilisation de structures de contrôle, d’affectations, d’entrées/sorties, et de commentaires.
+
+## Fonctionnalités supportées
+
+- Déclarations de variables (`int`, `chaine`)
+- Affectations et expressions arithmétiques
+- Instructions d’affichage (`afficher`)
+- Entrées utilisateur (`demander`)
+- Instructions conditionnelles (`si`, `sinon`)
+- Boucles (`pour ... jusqua ... faire`, `tant que ... faire`)
+- Enchaînements d’instructions avec `et`
+- Commentaires
+
+## Structure du projet
+
+- `pseudo.l` : Fichier Flex, responsable de l’analyse lexicale.
+- `pseudo.y` : Fichier Bison, responsable de l’analyse syntaxique et sémantique.
+- `main.c` : Intégré dans le Bison, génère le code C dans un fichier `output.c`.
+
+## Exemple d’entrée
+
+```pseudo
+# ceci est un commentaire
+declarer int x comme x = 5
+afficher x
+si x <= 5 alors afficher "OK" sinon afficher "NON"
+pour i = 0 jusqua 3 faire afficher i
+tant que x > 0 faire x = x - 1 et afficher x
+
+Code C généré
+
+#include <stdio.h>
+int main() {
+// ceci est un commentaire
+int x = 5;
+printf("%d\n", x);
+if (x <= 5) printf("OK\n"); else printf("NON\n");
+for (int i = 0; i <= 3; i++) {
+printf("%d\n", i);
+}
+while (x > 0) {
+x = (x - 1);
+printf("%d\n", x);
+}
+return 0;
+}
+
+Implémentation
+Analyse lexicale (traducteur.l)
+
+Chaque mot-clé (e.g. afficher, si, pour, etc.) est converti en token. Des règles permettent de détecter :
+    les chaînes entre guillemets
+    les entiers
+    les identifiants
+    les opérateurs relationnels
+
+Analyse syntaxique (traducteur.y)
+
+Les règles de production traduisent chaque instruction du pseudo-langage en une chaîne de caractères C, accumulée et écrite dans un fichier output.c.
+Table des symboles
+
+Les variables déclarées sont ajoutées à une table symbolique pour assurer leur existence avant usage et déterminer leur type.
+Difficultés rencontrées
+Gestion de la concaténation des instructions avec et dans une boucle ou un bloc
+Préservation des types pour les entrées/sorties
+Gestion des erreurs : variables non déclarées, types inconnus
+
+Améliorations possibles
+Ajout de types supplémentaires (float, bool, etc.)
+Gestion de fonctions et de blocs plus complexes
+Détection d’erreurs plus explicite et colorée
+
+
+Lancer le traducteur (version non packagee)
+
+bison -d traducteur.y
+flex traducteur.l
+gcc traducteur.tab.c lex.yy.c -o traducteur
+./traducteur < exemple.txt
+cat output.c
+
+Lancement a partir du package debian
+instalation
+sudo dpkg -i flexibisonatorz-1.0.deb
+python3 /usr/share/gui.py
