@@ -1,49 +1,146 @@
-FLEXIBISONATORZ
+# FLEXIBISONATORZ
 
-FLEXIBISONATORZ est un logiciel libre permettant de traduire un pseudo-langage pédagogique simple en langage C.
-Il s'adresse principalement aux étudiants débutants pour comprendre la logique du langage C à travers une interface graphique intuitive.
-🧠 Fonctionnalités
+**FLEXIBISONATORZ** est un logiciel libre de traduction d’un pseudo-langage pédagogique vers le langage C.Ce projet est destiné aux étudiants débutants afin de les initier à la logique du langage C à travers une syntaxe inspirée du français et une interface intuitive.
 
-    Traduction automatique de pseudo-code en C
-    Interface graphique écrite en Python avec Tkinter
-    Chargement de fichiers .txt de pseudo-code
-    Sauvegarde du code C généré
-    Affichage du mode d'emploi dans l'interface
+---
 
-📦 Installation
+## 🎯 Objectifs du projet
 
-Après avoir installé le paquet .deb :
+- Concevoir un pseudo-langage simple, inspiré du français.
+- Traduire automatiquement ce langage vers du code C valide.
+- Fournir une interface graphique conviviale pour faciliter l’utilisation.
+- Initier à l’utilisation de Flex et Bison.
 
-sudo dpkg -i Flexibisonatorz-1.0.deb
-Utilisation
+---
 
-Lancez l'interface graphique avec la commande suivante :
+## 🧠 Fonctionnalités
 
+- ✅ Déclarations de variables (`int`, `chaine`)
+- ✅ Affectations et expressions arithmétiques
+- ✅ Affichage (`afficher`)
+- ✅ Lecture utilisateur (`demander`)
+- ✅ Conditions (`si`, `sinon`)
+- ✅ Boucles (`pour ... jusqua ... faire`, `tant que ... faire`)
+- ✅ Enchaînements d’instructions avec `et`
+- ✅ Commentaires (`# commentaire`)
+- ✅ Interface graphique (`gui.py`) avec Tkinter
+- ✅ Génération de code C dans un fichier `output.c`
+
+---
+
+## 📦 Installation
+
+### Depuis le paquet `.deb` (Debian/Ubuntu)
+
+```bash
+sudo dpkg -i flexibisonatorz-1.0.deb
+```
+
+### Dépendances
+
+- Python 3
+- Tkinter (`sudo apt install python3-tk`)
+- Flex & Bison (`sudo apt install flex bison`)
+
+---
+
+## 🚀 Utilisation
+
+### Lancer l’interface graphique
+
+```bash
 python3 /usr/share/gui.py
+```
 
-Depuis l'interface :
+### Depuis les sources
 
-    Écrivez ou chargez un pseudo-code
-    Cliquez sur "Traduire en C"
-    Le résultat s'affiche dans la zone de sortie
+```bash
+bison -d traducteur.y
+flex traducteur.l
+gcc traducteur.tab.c lex.yy.c -o traducteur
+./traducteur < input.txt
+cat output.c
+```
 
-## 📂 Structure du projet gui.py : Interface graphique (Tkinter) traducteur : Binaire compilé à partir de Flex & Bison input.txt / output.c : Fichiers temporaires d'entrée/sortie README.md : Ce fichier LICENSE : Licence libre du projet build_deb.sh : Script pour générer le paquet Debian uninstall.sh : Script de désinstallation src/ : Contient les sources (.l, .y, interface_source.py)
-🛠 Dépendances
+---
 
-Python 3 Tkinter (souvent dans le paquet python3-tk) Flex & Bison (pour la compilation du traducteur)
-👥 Auteurs
+## 📂 Structure du projet
 
-Moi— développeur principal
+```text
+.
+├── src/                     # Sources Flex/Bison + interface
+│   ├── traducteur.l         # Analyse lexicale (Flex)
+│   ├── traducteur.y         # Analyse syntaxique (Bison)
+│   └── interface_source.py  # Logiciel GUI (Tkinter)
+├── gui.py                   # Lanceur de l’interface graphique
+├── input.txt                # Exemple de pseudo-code d’entrée
+├── output.c                 # Fichier de sortie généré
+├── README.md                # Documentation principale
+├── LICENSE                  # Licence MIT
+├── build_deb.sh            # Script de création du .deb
+├── uninstall.sh            # Script de désinstallation
+└── flexibisonatorz-1.0.deb  # Paquet Debian généré
+```
 
-## 📄 Licence Ce projet est distribué sous la licence MIT. Voir le fichier LICENSE pour plus de détails.
-🧪 Exemple de pseudo-code traduit
+---
 
-Entrée :
+## 🧪 Exemple
 
-declarer int x comme x = 5 si x <= 5 alors afficher "OK" sinon afficher "NON"
+### Entrée (pseudo-langage) :
 
-Sortie :
+```pseudo
+# ceci est un commentaire
+declarer int x comme x = 5
+afficher x
+si x <= 5 alors afficher "OK" sinon afficher "NON"
+pour i = 0 jusqua 3 faire afficher i
+tant que x > 0 faire x = x - 1 et afficher x
+```
 
-int x = 5; if (x <= 5) { printf("OK\n"); } else { printf("NON\n"); }
+### Sortie (C) :
 
-Merci d’utiliser FLEXIBISONATORZ ✨
+```c
+#include <stdio.h>
+int main() {
+    // ceci est un commentaire
+    int x = 5;
+    printf("%d\n", x);
+    if (x <= 5) printf("OK\n");
+    else printf("NON\n");
+    for (int i = 0; i <= 3; i++) {
+        printf("%d\n", i);
+    }
+    while (x > 0) {
+        x = (x - 1);
+        printf("%d\n", x);
+    }
+    return 0;
+}
+```
+
+---
+
+## 🛠 Améliorations futures
+
+- ✅ Ajout de types supplémentaires (`float`, `bool`, etc.)
+- ✅ Gestion des fonctions personnalisées
+- ✅ Détection d’erreurs plus précise et messages colorés
+- ✅ Mode console interactif
+
+---
+
+## 👤 Auteur
+
+Développé par **[Ton Nom]**, étudiant en licence informatique.Projet réalisé dans le cadre du cours de compilation / traitement du langage.
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence **MIT**.Voir le fichier [LICENSE](./LICENSE) pour plus d’informations.
+
+---
+
+## 💬 Contact & Contributions
+
+Les contributions sont les bienvenues !Pour toute suggestion ou bug, n’hésitez pas à ouvrir une **Issue** ou un **Pull Request** sur GitHub.
