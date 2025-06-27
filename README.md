@@ -127,11 +127,6 @@ int main() {
 - ✅ Détection d’erreurs plus précise et messages colorés
 - ✅ Mode console interactif
 
----
-
-## 👤 Auteur
-
-Développé par **[Ton Nom]**, étudiant en licence informatique.Projet réalisé dans le cadre du cours de compilation / traitement du langage.
 
 ---
 
